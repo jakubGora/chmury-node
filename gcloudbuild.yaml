@@ -1,0 +1,12 @@
+steps:
+  # Krok 1: Instalacja zależności
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+
+#  # Krok 2: (Opcjonalnie) Uruchomienie testów
+#  - name: 'gcr.io/cloud-builders/npm'
+#    args: ['test']
+
+  # Krok 3: Wdrażanie na App Engine
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['app', 'deploy']
