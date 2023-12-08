@@ -1,8 +1,12 @@
 steps:
-  # Krok 1: Instalacja zależności
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
-
-  # Krok 2: Wdrażanie na App Engine
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'build']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us.gcr.io/$PROJECT_ID/backend-container', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us.gcr.io/$PROJECT_ID/backend-container']
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy']
+    args: ['app', 'deploy', '--image-url', 'us.gcr.io/$PROJECT_ID/backend-container']
+images: ['us.gcr.io/$PROJECT_ID/backend-container']
