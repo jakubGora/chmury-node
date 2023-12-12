@@ -1,11 +1,19 @@
 steps:
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
+    options:
+      machineType: 'E2_HIGHCPU_8'
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/backend-container', '.']
+    args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/backend-container:$BUILD_ID', '.']
+    options:
+      machineType: 'E2_HIGHCPU_8'
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'eu.gcr.io/$PROJECT_ID/backend-container']
+    args: ['push', 'eu.gcr.io/$PROJECT_ID/backend-container:$BUILD_ID']
+    options:
+      machineType: 'E2_HIGHCPU_8'
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy', '--image-url', 'eu.gcr.io/$PROJECT_ID/backend-container']
-images: ['eu.gcr.io/$PROJECT_ID/backend-container']
+    args: ['app', 'deploy', '--image-url', 'eu.gcr.io/$PROJECT_ID/backend-container:$BUILD_ID']
+    options:
+      machineType: 'E2_HIGHCPU_8'
+images: ['eu.gcr.io/$PROJECT_ID/backend-container:$BUILD_ID']
 
