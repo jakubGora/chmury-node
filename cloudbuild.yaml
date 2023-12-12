@@ -2,9 +2,9 @@ steps:
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us.gcr.io/$PROJECT_ID/backend-container', '.']
+    args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/backend-container', '.']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us.gcr.io/$PROJECT_ID/backend-container']
+    args: ['push', 'eu.gcr.io/$PROJECT_ID/backend-container']
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy', '--image-url', 'us.gcr.io/$PROJECT_ID/backend-container']
-images: ['us.gcr.io/$PROJECT_ID/backend-container']
+    args: ['app', 'deploy', '--image-url', 'eu.gcr.io/$PROJECT_ID/backend-container']
+images: ['eu.gcr.io/$PROJECT_ID/backend-container']
