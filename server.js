@@ -1,31 +1,43 @@
-const express = require('express');
+const express = require("express");
+const cors = require("cors");
+
 const app = express();
+
+var corsOptions = {
+  origin: "http://localhost:8081"
+};
+
+app.use(cors(corsOptions));
+
+// parse requests of content-type - application/json
 app.use(express.json());
 
-const clouds = [];
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 
-// Utwórz nową chmurę
-app.post('/clouds', (req, res) => {
-    const cloud = { id: clouds.length + 1, name: req.body.name };
-    clouds.push(cloud);
-    res.status(201).send(cloud);
+const db = require("./app/models");
+db.mongoose
+  .connect(db.url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log("Connected to the database!");
+  })
+  .catch(err => {
+    console.log("Cannot connect to the database!", err);
+    process.exit();
+  });
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to bezkoder application." });
 });
 
-// Odczytaj listę chmur
-app.get('/clouds', (req, res) => {
-    res.send(clouds);
-});
+require("./app/routes/turorial.routes")(app);
 
-// Usuń chmurę
-app.delete('/clouds/:id', (req, res) => {
-    const cloud = clouds.find(c => c.id === parseInt(req.params.id));
-    if (!cloud) return res.status(404).send('Cloud not found.');
-
-    const index = clouds.indexOf(cloud);
-    clouds.splice(index, 1);
-    res.send(cloud);
-});
-
-// Uruchom serwer
+// set port, listen for requests
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
