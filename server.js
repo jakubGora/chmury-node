@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "https://backend-dot-cellular-codex-407313.lm.r.appspot.com"
 };
 
 app.use(cors(corsOptions));
