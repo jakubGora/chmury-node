@@ -14,6 +14,8 @@ obie części posiadają zintegrowane CI/CD do budowania i deploju aplikacji w G
 ![image](https://github.com/jakubGora/chmury-node/assets/91736696/3b2868b0-fce3-43d4-8418-a21cd92b373b)
 
 
+Url do aplikacji: https://cellular-codex-407313.lm.r.appspot.com/tutorials
+
 Zadanie wykonane przez:
 
 Jakub Góra
